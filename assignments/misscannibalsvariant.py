@@ -49,7 +49,6 @@ class MissCannibalsVariant(Problem):
             b,
         ) = state
         actions = []
-        print("state", state)
         # go through all posisble actions
         for a in self.possible_actions:
             numMiss, numCann = a.count("M"), a.count("C")
@@ -63,6 +62,7 @@ class MissCannibalsVariant(Problem):
                 and ((self.N1 - newM == 0 or self.N1 - newM >= self.N2 - newC))
             ):
                 actions.append(a)
+        print("actions at state", state, ":", actions)
         return actions
 
 
