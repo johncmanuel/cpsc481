@@ -6,16 +6,16 @@ class MissCannibalsVariant(Problem):
     The problem of Missionaries and Cannibals.
     N1 and N2 are the total number of missionaries and cannibals starting from the
     left bank.
-    
+
     A state is represented as a 3-tuple, two numbers and a boolean:
     state[0] is the number of missionaries on the left bank (note: the number of
     missionaries on the right bank is N1-m)
-    
+
     state[1] is the number of cannibals on the left bank (note: the number of
     cannibals on the right bank is N2-c)
-    
+
     state[2] is true if boat is at the left bank, false if at the right bank
-    
+
     boat capacity is 3
     """
 
@@ -36,9 +36,9 @@ class MissCannibalsVariant(Problem):
         numMiss, numCann = action.count("M"), action.count("C")
         # add missionaries and/or cannibals if going back to left bank
         return (
-            (m - numMiss, c - numCann, not b)
+            (max(m - numMiss, 0), max(c - numCann, 0), not b)
             if b
-            else (m + numMiss, c + numCann, not b)
+            else (min(m + numMiss, self.N1), min(c + numCann, self.N2), not b)
         )
 
     # Should return list of actions
