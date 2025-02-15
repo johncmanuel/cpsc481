@@ -28,6 +28,7 @@ class MissCannibalsVariant(Problem):
         super().__init__(initial, goal)
 
     # return new state as result of an action
+    # TODO: account for cases when n1 or n2 exceeds boat capac or below 0
     def result(
         self, state: tuple[int, int, bool], action: str
     ) -> tuple[int, int, bool]:
@@ -48,6 +49,7 @@ class MissCannibalsVariant(Problem):
             b,
         ) = state
         actions = []
+        print("state", state)
         # go through all posisble actions
         for a in self.possible_actions:
             numMiss, numCann = a.count("M"), a.count("C")
