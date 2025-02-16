@@ -28,7 +28,6 @@ class MissCannibalsVariant(Problem):
         super().__init__(initial, goal)
 
     # return new state as result of an action
-    # TODO: account for cases when n1 or n2 exceeds boat capac or below 0
     def result(
         self, state: tuple[int, int, bool], action: str
     ) -> tuple[int, int, bool]:
@@ -49,29 +48,46 @@ class MissCannibalsVariant(Problem):
             b,
         ) = state
         actions = []
+        print("state", state)
         # go through all posisble actions
         for a in self.possible_actions:
+            print("action", a)
             numMiss, numCann = a.count("M"), a.count("C")
             if b:
-                newM, newC = m - numMiss, c - numCann
+                mLeft, cLeft = m - numMiss, c - numCann
             else:
-                newM, newC = m + numMiss, c + numCann
+                mLeft, cLeft = m + numMiss, c + numCann
+            mRight, cRight = self.N1 - mLeft, self.N2 - cLeft
+            # check for negative values and if missionaries are outnumbered by cannibals
             if (
-                (newM >= 0 and newC >= 0)
-                and (newM == 0 or newM >= newC)
-                and ((self.N1 - newM == 0 or self.N1 - newM >= self.N2 - newC))
+                (mLeft >= 0 and cLeft >= 0)
+                and (mRight >= 0 and cRight >= 0)
+                and (mLeft == 0 or mLeft >= cLeft)
+                and (mRight == 0 or mRight >= cRight)
             ):
+                print(
+                    "mLeft",
+                    mLeft,
+                    "cLeft",
+                    cLeft,
+                    "|",
+                    "mRight",
+                    mRight,
+                    "cRight",
+                    cRight,
+                )
                 actions.append(a)
-        print("actions at state", state, ":", actions)
         return actions
 
 
 if __name__ == "__main__":
-    mc = MissCannibalsVariant(4, 4)
-    print(mc.result((2, 2, False), "M"))
-    print(
-        mc.actions((3, 3, True))
-    )  # Test your code as you develop! This should return ['MC', 'MMM']
+    # mc = MissCannibalsVariant(4, 4)
+    mc = MissCannibalsVariant(3, 3)
+    # print(mc.result((2, 2, False), "M"))
+    # print(
+    #     mc.actions((3, 3, True))
+    # )  # Test your code as you develop! This should return ['MC', 'MMM']
+    # print(mc.actions((2,2,False)))
     path = depth_first_graph_search(mc).solution()
     print("dfs", path)
     path = breadth_first_graph_search(mc).solution()
