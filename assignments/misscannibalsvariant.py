@@ -58,37 +58,37 @@ class MissCannibalsVariant(Problem):
             else:
                 mLeft, cLeft = m + numMiss, c + numCann
             mRight, cRight = self.N1 - mLeft, self.N2 - cLeft
+            print(
+                "mLeft",
+                mLeft,
+                "cLeft",
+                cLeft,
+                "|",
+                "mRight",
+                mRight,
+                "cRight",
+                cRight,
+            )
             # check for negative values and if missionaries are outnumbered by cannibals
             if (
-                (mLeft >= 0 and cLeft >= 0)
-                and (mRight >= 0 and cRight >= 0)
+                (mLeft >= 0 and cLeft >= 0 and mRight >= 0 and cRight >= 0)
                 and (mLeft == 0 or mLeft >= cLeft)
                 and (mRight == 0 or mRight >= cRight)
             ):
-                print(
-                    "mLeft",
-                    mLeft,
-                    "cLeft",
-                    cLeft,
-                    "|",
-                    "mRight",
-                    mRight,
-                    "cRight",
-                    cRight,
-                )
+                print("added", a)
                 actions.append(a)
         return actions
 
 
 if __name__ == "__main__":
-    # mc = MissCannibalsVariant(4, 4)
-    mc = MissCannibalsVariant(3, 3)
+    mc = MissCannibalsVariant(4, 4)
+    # mc = MissCannibalsVariant(3, 3)
     # print(mc.result((2, 2, False), "M"))
     # print(
     #     mc.actions((3, 3, True))
     # )  # Test your code as you develop! This should return ['MC', 'MMM']
-    # print(mc.actions((2,2,False)))
-    path = depth_first_graph_search(mc).solution()
-    print("dfs", path)
-    path = breadth_first_graph_search(mc).solution()
-    print("bfs", path)
+    print(mc.actions((2, 2, False)))
+    # path = depth_first_graph_search(mc).solution()
+    # print("dfs", path)
+    # path = breadth_first_graph_search(mc).solution()
+    # print("bfs", path)
