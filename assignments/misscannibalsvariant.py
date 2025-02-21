@@ -24,7 +24,7 @@ class MissCannibalsVariant(Problem):
         self.N1 = N1
         self.N2 = N2
         # assumes boat capacity is 3, so number of possible actions is 3^2 -> 9
-        self.possible_actions = ["M", "C", "MC", "MM", "CC", "MMM", "CCC", "MCM", "MCC"]
+        self.possible_actions = ["M", "C", "MC", "MM", "CC", "MMM", "CCC", "MMC", "MCC"]
         super().__init__(initial, goal)
 
     # return new state as result of an action
@@ -77,6 +77,7 @@ class MissCannibalsVariant(Problem):
             ):
                 print("added", a)
                 actions.append(a)
+            print("valid actions", actions)
         return actions
 
 
