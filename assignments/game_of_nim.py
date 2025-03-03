@@ -5,10 +5,11 @@ class GameOfNim(Game):
 
     def __init__(self, board: list[int]):
         self.board = board
-        self.moves = []
+        self.moves = self.make_moves(board)
         self.initial = GameState(to_move="MAX", utility=0, board=board, moves=self.moves)
 
     # create new state as result of an action
+    # this assumes its a valid move, so no need to check
     def result(self, state, move: tuple[int, int]):
         state[move[0]] -= move[1]
         return state
@@ -28,6 +29,10 @@ class GameOfNim(Game):
     def display(self, state):
         board = state.board
         print("board: ", board)
+
+    # generate all possible moves for a given state
+    def make_moves(self, board: list[int]):
+        return [(i, j) for i in range(1, len(board)) for j in range(1, board[i] + 1)]
 
 
 if __name__ == "__main__":
