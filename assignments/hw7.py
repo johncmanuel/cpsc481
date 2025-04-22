@@ -9,9 +9,12 @@ def perceptron_output(inputs, weights, bias):
 
 data = [(5, 1, 3), (6, 0, 2), (4, 0, 2), (5, 1, 3), (5, 0, 2)]
 
-weights = [-5, 13, 14]
+# weights = [-5, 13, 14]
+weights = [[-5, 13, 14], [0, 0, 0], [-6, 0, -2], [0, 0, 0], [0, 0, 0]]
+assert len(weights) == len(data), "Weights and data must have the same length"
 bias = 0
 
-for input_vec in data:
-    prediction = perceptron_output(input_vec, weights, bias)
+# for input_vec in data:
+for input_vec, weight in zip(data, weights):
+    prediction = perceptron_output(input_vec, weight, bias)
     print(f"Input: {input_vec}, Prediction: {prediction}")
